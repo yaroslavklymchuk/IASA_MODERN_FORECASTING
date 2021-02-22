@@ -110,10 +110,10 @@ def plot_data_by_fold(df, fold_ids, figsize=(10, 30)):
             train_df_tmp.Date.min(), train_df_tmp.Date.max(), validate_df_tmp.Date.min(), validate_df_tmp.Date.max()))
 
 
-def make_cross_validation(df, target_column='Close', test_size=30, folds_plots_size=(10, 30), stat_plot_size=(10, 8)):
+def make_cross_validation(df, target_column='Close', n_splits=5, test_size=30, folds_plots_size=(10, 30), stat_plot_size=(10, 8)):
     ts = df[target_column]
     
-    folds_indexes = list(TimeSeriesSplit(test_size=test_size).split(ts))
+    folds_indexes = list(TimeSeriesSplit(n_splits=n_splits, test_size=test_size).split(ts))
     min_fold_len = min([len(fold[0]) for fold in folds_indexes])
     
     for i in range(len(folds_indexes)):
